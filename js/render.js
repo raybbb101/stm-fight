@@ -1,6 +1,6 @@
 import { WEAPONS } from './weapons.js';
 import { STAGES, W, H, platAt } from './stages.js';
-import { MAX_HP } from './game.js';
+import { MAX_HP, FUEL } from './game.js';
 import { sfx } from './audio.js';
 
 export const PCOL = ['#ff4d5e', '#3da5ff'];
@@ -485,6 +485,21 @@ export class Renderer {
     ctx.restore();
     ctx.globalAlpha = 1;
     // overlays (unmirrored)
+    if (p.flying) {
+      for (const fx_ of [-7, 7]) {
+        const fl = 14 + Math.random() * 14;
+        const gr = ctx.createLinearGradient(0, p.y, 0, p.y + fl);
+        gr.addColorStop(0, '#fff59d'); gr.addColorStop(0.4, '#ff9800'); gr.addColorStop(1, 'rgba(255,61,0,0)');
+        ctx.fillStyle = gr;
+        ctx.beginPath(); ctx.moveTo(p.x + fx_ - 5, p.y); ctx.lineTo(p.x + fx_ + 5, p.y); ctx.lineTo(p.x + fx_, p.y + fl); ctx.fill();
+      }
+      if (t % 3 === 0) this.parts.push({ k: 'smoke', x: p.x, y: p.y + 10, vx: (Math.random() - 0.5) * 2, vy: 2, life: 18, max: 30, c: 'rgba(200,200,200,.6)', s: 5 });
+    }
+    if (p.fuel != null && p.fuel < FUEL) {
+      const f = Math.max(0, p.fuel) / FUEL;
+      ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fillRect(p.x - 20, p.y - 140, 40, 5);
+      ctx.fillStyle = f > 0.3 ? '#4fc3f7' : '#ff7043'; ctx.fillRect(p.x - 20, p.y - 140, 40 * f, 5);
+    }
     if (p.frozen > 0) {
       ctx.fillStyle = 'rgba(179,229,252,.55)'; ctx.strokeStyle = '#e1f5fe'; ctx.lineWidth = 2;
       roundRect(ctx, p.x - 30, p.y - 102, 60, 104, 8); ctx.fill(); ctx.stroke();

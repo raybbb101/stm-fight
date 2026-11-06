@@ -5,6 +5,7 @@ import { STAGES, W, H, platAt } from './stages.js';
 export const LIVES = 3;
 export const MAX_HP = 100;
 const PW = 14, PH = 78; // half width, height
+export const FUEL = 105; // flight time in frames (~1.75s) when holding up
 const NUM_WEAPONS = WEAPONS.length;
 
 export function emptyInput() {
@@ -15,7 +16,7 @@ function makePlayer(i, stage, weapon, name) {
   const [sx, sy] = stage.spawns[i];
   return {
     i, name, x: sx, y: sy, vx: 0, vy: 0, face: i === 0 ? 1 : -1,
-    hp: MAX_HP, lives: LIVES, w: weapon, ground: false, jumps: 1,
+    hp: MAX_HP, lives: LIVES, w: weapon, ground: false, jumps: 1, fuel: FUEL, flying: false, upHold: 0,
     atkT: 0, atkCd: 0, skillCd: 60, stun: 0, frozen: 0, inv: 0, shield: 0, rage: 0,
     spin: 0, dash: 0, slam: false, rapid: 0, dead: 0, anim: 0, drop: 0, hitDone: true,
     uppercut: 0, lastBy: -1, kos: 0, dmgDealt: 0,
@@ -92,7 +93,7 @@ function loseLife(g, p, launched) {
 function respawn(g, p) {
   const st = STAGES[g.stage];
   const [sx] = st.spawns[p.i];
-  p.x = sx; p.y = 80; p.vx = 0; p.vy = 0; p.hp = MAX_HP; p.inv = 150; p.jumps = 1;
+  p.x = sx; p.y = 80; p.vx = 0; p.vy = 0; p.hp = MAX_HP; p.inv = 150; p.jumps = 1; p.fuel = FUEL; p.flying = false;
   p.skillCd = Math.min(p.skillCd, 60);
   fx(g, { t: 'spawn', x: p.x, y: p.y - 40, i: p.i });
 }
@@ -376,7 +377,7 @@ export function step(g, inputs) {
         p.drop = 14; p.ground = false;
       } else if (p.ground || p.jumps > 0) {
         if (!p.ground) p.jumps--;
-        p.vy = -15.5 * (st.jump || 1);
+        p.vy = -12 * (st.jump || 1); // small hop; keep holding up to fly
         p.ground = false;
         fx(g, { t: 'jump', x: p.x, y: p.y });
       }
@@ -434,6 +435,16 @@ export function step(g, inputs) {
     if (p.dash > 0) p.vy *= 0.5;
     else p.vy = Math.min(p.vy + grav, p.slam ? 30 : 18);
 
+    // flight: keep holding up -> fly upward until the fuel runs out, then fall
+    p.upHold = inp.u && canAct ? p.upHold + 1 : 0;
+    const wasFlying = p.flying;
+    p.flying = p.upHold > 8 && p.fuel > 0 && p.dash <= 0 && !p.slam && (wasFlying || p.fuel >= 25);
+    if (p.flying) {
+      p.fuel--;
+      p.vy = Math.max(p.vy - grav - 0.8, -6 * (st.jump || 1));
+      if (!wasFlying) fx(g, { t: 'snd', n: 'fly' });
+    }
+
     // move & collide
     const prevY = p.y;
     p.x += p.vx;
@@ -467,6 +478,7 @@ export function step(g, inputs) {
       }
     }
     if (p.ground && p.slam) slamImpact(g, p);
+    if (p.ground && !p.flying && !inp.u) p.fuel = Math.min(FUEL, p.fuel + 3); // recharge after landing & releasing up
     if (p.ground) p.anim += Math.abs(p.vx);
     if (st.walls) {
       if (p.x < PW) { p.x = PW; p.vx = Math.abs(p.vx) * 0.5; }

@@ -7,13 +7,14 @@ A 2D online 1v1 stickman fighting game for mobile that you can install from Chro
 - **50 weapons** (melee, ranged, magic). Every weapon has a normal attack plus its own **skill**: dashes, spins, ground slams, lightning, freezing, teleport backstab, shields that reflect shots, life drain, boomerangs, meteor/arrow rain, grappling hooks, poison clouds, black holes, beams, mines, quakes, tornados, rage mode, rapid fire.
 - **12 stages:** Rooftops, Volcano (lava), Sky Islands, Ice Cavern (slippery), Moon Base (low gravity), Factory (moving platforms), Storm Peak (wind), Dojo (walls), Neon Grid (jump pads), Desert Ruins, Jungle Canopy, Space Station.
 - Weapons fall from the sky during the match. Tap **GRAB** to pick one up.
-- **Practice vs CPU** has Easy, Normal and Hard bots and also works offline.
+- **Solo vs Bot:** play alone against an Easy, Normal or Hard bot, or pick **Target dummy** to practise on a target that doesn't fight back. Solo mode also works offline.
 
 ## Controls
 | Touch | Keyboard | Action |
 |---|---|---|
-| Left joystick | A / D | Move |
-| Flick stick up / JUMP | W / Space | Jump (double jump) |
+| Left joystick (appears where you touch, hidden otherwise) | A / D | Move |
+| Flick stick up | W / Space | Small jump (flick again for a double jump) |
+| Hold stick up | Hold W / Space | Fly upward for ~1.75s, then fall (recharges after landing) |
 | Hold stick down | S (+ jump) | Drop through platform |
 | ATK (hold) | J | Normal attack |
 | SKILL | K | Weapon skill |

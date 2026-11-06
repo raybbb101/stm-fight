@@ -73,17 +73,15 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
 .pause { position: absolute; top: max(6px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 5; width: 40px; height: 32px; border-radius: 8px; border: 2px solid rgba(255,255,255,.3); background: rgba(0,0,0,.4); color: #fff; font-weight: 900; margin-top: 18px; }
 #controls { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
 #stickZone { position: absolute; left: 0; bottom: 0; width: 45%; height: 70%; pointer-events: auto; touch-action: none; }
-#stickZone .hint { position: absolute; left: 30px; bottom: 20px; color: rgba(255,255,255,.25); font-weight: 900; font-size: 13px; }
-#stickBase { position: absolute; left: 110px; top: calc(100% - 120px); width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.25); transition: opacity .2s; opacity: .55; }
+#stickBase { position: absolute; left: 110px; top: calc(100% - 120px); width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.25); transition: opacity .2s; opacity: 0; pointer-events: none; }
 #stickBase.active { opacity: 1; transition: none; }
 #stickKnob { position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: rgba(255,255,255,.35); border: 2px solid rgba(255,255,255,.6); }
 #btns { position: absolute; right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); width: 220px; height: 200px; pointer-events: none; }
 .cbtn { position: absolute; pointer-events: auto; touch-action: none; border-radius: 50%; border: 3px solid rgba(255,255,255,.5); color: #fff; font-weight: 900; font-size: 14px; background: rgba(0,0,0,.35); font-family: inherit; overflow: hidden; }
 .cbtn.down { transform: scale(.92); filter: brightness(1.5); }
-.cbtn.atk { width: 92px; height: 92px; right: 0; bottom: 0; background: rgba(255,77,94,.45); font-size: 18px; }
-.cbtn.jump { width: 74px; height: 74px; right: 104px; bottom: 0; background: rgba(61,165,255,.45); }
-.cbtn.skill { width: 74px; height: 74px; right: 10px; bottom: 104px; background: rgba(105,240,174,.4); }
-.cbtn.grab { width: 58px; height: 58px; right: 102px; bottom: 92px; background: rgba(255,213,79,.35); font-size: 12px; }
+.cbtn.atk { width: 96px; height: 96px; right: 0; bottom: 0; background: rgba(255,77,94,.45); font-size: 18px; }
+.cbtn.skill { width: 78px; height: 78px; right: 110px; bottom: 6px; background: rgba(105,240,174,.4); }
+.cbtn.grab { width: 62px; height: 62px; right: 18px; bottom: 112px; background: rgba(255,213,79,.35); font-size: 12px; }
 .cbtn i { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); height: 0; pointer-events: none; }
 @media (pointer: fine) { #controls { display: none; } }
 body.force-touch #controls { display: block; }

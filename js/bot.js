@@ -6,7 +6,7 @@ import { emptyInput } from './game.js';
 export class Bot {
   constructor(level = 1) {
     this.s = emptyInput();
-    this.level = level; // 0 easy, 1 normal, 2 hard
+    this.level = level; // -1 target dummy, 0 easy, 1 normal, 2 hard
     this.think = 0;
     this.plan = { x: 0 };
   }
@@ -24,10 +24,11 @@ export class Bot {
     const me = g.players[i], o = g.players[1 - i];
     const s = this.s;
     s.atk = false;
-    if (me.dead > 0 || g.countdown > 0) { s.x = 0; return { ...s }; }
+    if (this.level < 0 || me.dead > 0 || g.countdown > 0) { s.x = 0; s.u = false; return { ...s }; }
     const react = [14, 7, 3][this.level];
     if (--this.think > 0) return { ...s };
     this.think = react;
+    s.u = false;
     const wp = WEAPONS[me.w];
     const dx = o.x - me.x, dy = o.y - me.y, adx = Math.abs(dx);
     const ranged = wp.atk.kind === 'shot';
@@ -59,11 +60,12 @@ export class Bot {
       let best = null, bd = 1e9;
       for (const pl of st.plats) { const p = platAt(pl, g.t); const cx = p.x + pl.w / 2, d = Math.abs(cx - me.x); if (d < bd) { bd = d; best = cx; } }
       if (best !== null) mx = Math.sign(best - me.x);
+      s.u = me.fuel > 0 && me.y > 300; // fly back up to the stage
       if (me.vy > 2 && me.jumps > 0) s.jc++;
       else if (me.vy > 4 && me.skillCd <= 0 && (wp.skill.type === 'uppercut' || wp.skill.type === 'dash')) s.sc++;
     }
     // chase vertically
-    if (me.ground && dy < -120 && adx < 300 && Math.random() < 0.5) s.jc++;
+    if (me.ground && dy < -120 && adx < 300 && Math.random() < 0.5) { s.jc++; s.u = dy < -200; }
     if (me.ground && dy > 100 && adx < 200 && me.onPlat === 'oneway') { s.d = true; s.jc++; }
     s.x = mx;
 

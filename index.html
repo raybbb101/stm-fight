@@ -25,7 +25,7 @@
       <div class="menu-btns">
         <button class="btn big primary" id="btnCreate">Create Room</button>
         <button class="btn big" id="btnJoin">Join Room</button>
-        <button class="btn big" id="btnPractice">Practice vs CPU</button>
+        <button class="btn big" id="btnPractice">Solo vs Bot</button>
       </div>
       <div class="menu-row">
         <button class="btn small" id="btnHow">How to Play</button>
@@ -55,8 +55,8 @@
     <header class="lobby-head">
       <button class="btn small" id="btnLeave">✕ Leave</button>
       <div id="roomBox" class="room-box">ROOM <b id="roomCode">-----</b> <button class="btn tiny" id="btnShare">Share</button></div>
-      <div id="cpuBox" class="cpu-box hidden">CPU:
-        <select id="cpuLevel"><option value="0">Easy</option><option value="1" selected>Normal</option><option value="2">Hard</option></select>
+      <div id="cpuBox" class="cpu-box hidden">Bot:
+        <select id="cpuLevel"><option value="0">Easy</option><option value="1" selected>Normal</option><option value="2">Hard</option><option value="-1">Target dummy</option></select>
       </div>
       <div class="vs"><span id="lobP1" class="p1">P1</span> vs <span id="lobP2" class="p2">waiting…</span></div>
       <button class="btn primary" id="btnStart" disabled>START</button>
@@ -80,11 +80,10 @@
     <canvas id="cv"></canvas>
     <button id="btnPause" class="pause">II</button>
     <div id="controls">
-      <div id="stickZone"><div id="stickBase"><div id="stickKnob"></div></div><span class="hint">MOVE</span></div>
+      <div id="stickZone"><div id="stickBase"><div id="stickKnob"></div></div></div>
       <div id="btns">
         <button data-k="g" class="cbtn grab">GRAB</button>
         <button data-k="s" class="cbtn skill">SKILL<i id="skillCd"></i></button>
-        <button data-k="j" class="cbtn jump">JUMP</button>
         <button data-k="a" class="cbtn atk">ATK</button>
       </div>
     </div>
@@ -118,10 +117,12 @@
         <li><b>Online:</b> one player taps <b>Create Room</b> and shares the 5‑digit room number. The other taps <b>Join Room</b> and types it in.</li>
         <li>Each fighter has <b>3 lives</b>. Lose a life when your HP hits 0 or you get knocked off the stage. Last stickman standing wins!</li>
         <li>The lower your HP, the further you fly when hit.</li>
-        <li><b>Left side:</b> drag to move. Flick up to jump, hold down to drop through thin platforms.</li>
-        <li><b>ATK</b> – normal attack (hold to keep attacking). <b>SKILL</b> – your weapon's special move. <b>JUMP</b> – tap twice to double jump. <b>GRAB</b> – pick up a weapon that dropped from the sky.</li>
+        <li><b>Left side:</b> touch anywhere and the joystick appears under your thumb. Drag left/right to move. Hold down to drop through thin platforms.</li>
+        <li><b>Jump &amp; fly:</b> flick the joystick up for a small jump (flick again in the air for a double jump). <b>Keep holding up</b> to fly upward for about 2 seconds, then you fall. Your flight recharges when you land. The bar over your head shows how much flight is left.</li>
+        <li><b>Right side:</b> <b>ATK</b> = normal attack (hold to keep attacking), <b>SKILL</b> = your weapon's special move, <b>GRAB</b> = pick up a weapon that dropped from the sky.</li>
+        <li><b>Solo vs Bot:</b> play alone against a computer fighter (Easy, Normal, Hard), or pick <i>Target dummy</i> to practise on a target that doesn't fight back.</li>
         <li>Every one of the 50 weapons has its own skill: dashes, lightning, black holes, freezing, teleports, meteors, shields and more.</li>
-        <li><b>Keyboard:</b> A/D move · W/Space jump · S drop · J attack · K skill · L grab.</li>
+        <li><b>Keyboard:</b> A/D move · W/Space jump (hold to fly) · S drop · J attack · K skill · L grab.</li>
         <li><b>Install:</b> in Chrome tap ⋮ → <i>Install app</i> / <i>Add to Home screen</i> to play it like a normal app.</li>
       </ul>
       <button class="btn" data-back>Back</button>

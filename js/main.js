@@ -86,7 +86,7 @@ $('roomInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('bt
 $('btnPractice').onclick = () => {
   resetNet();
   app.mode = 'local'; app.me = 0;
-  app.lobby = { stage: -1, picks: [-1, -1], names: [myName(), 'CPU'], connected: true };
+  app.lobby = { stage: -1, picks: [-1, -1], names: [myName(), 'Bot'], connected: true };
   $('roomBox').classList.add('hidden'); $('cpuBox').classList.remove('hidden');
   openLobby();
 };
@@ -275,7 +275,8 @@ $('btnStart').onclick = () => {
   const weapons = L.picks.map((p) => (p === -1 ? rw() : p));
   if (app.mode === 'local') {
     app.bot = new Bot(+$('cpuLevel').value);
-    weapons[1] = rw();
+    weapons[1] = app.bot.level < 0 ? 0 : rw();
+    L.names[1] = app.bot.level < 0 ? 'Target' : 'Bot';
   }
   if (app.mode === 'host') app.net.send({ t: 'start', stage, weapons, names: L.names });
   startGame(stage, weapons, L.names);

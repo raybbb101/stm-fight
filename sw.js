@@ -1,5 +1,5 @@
 // Service worker: caches the game so it loads fast and works offline (practice mode).
-const CACHE = 'stm-pvp-v1';
+const CACHE = 'stm-pvp-v2';
 const ASSETS = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/main.js', 'js/game.js', 'js/render.js', 'js/weapons.js', 'js/stages.js',

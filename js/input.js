@@ -93,7 +93,8 @@ export class Input {
     if (k.has('KeyA') || k.has('ArrowLeft')) x = -1;
     if (k.has('KeyD') || k.has('ArrowRight')) x = 1;
     const d = this.stick.y > 0.6 || k.has('KeyS') || k.has('ArrowDown');
-    this.s.x = x; this.s.d = d; this.s.u = this.stick.y < -0.6;
+    this.s.x = x; this.s.d = d;
+    this.s.u = this.stick.y < -0.6 || k.has('KeyW') || k.has('ArrowUp') || k.has('Space');
     this.s.atk = this.held.a;
     return { ...this.s };
   }

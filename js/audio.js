@@ -61,6 +61,7 @@ export function sfx(n) {
     case 'drop': tone('sine', 800, 400, 0.2, 0.15); break;
     case 'spawn': tone('triangle', 300, 900, 0.3, 0.2); break;
     case 'wind': noise(0.8, 0.2, 500, 0.3); break;
+    case 'fly': noise(0.35, 0.3, 700, 0.6); tone('sawtooth', 120, 260, 0.3, 0.12); break;
     case 'click': tone('square', 700, 700, 0.04, 0.15); break;
   }
 }
