@@ -1,0 +1,19 @@
+{
+  "name": "Stickmen PvP Arena",
+  "short_name": "Stick PvP",
+  "description": "Online 1v1 stickman fighting game with 50 weapons, unique skills and 12 stages.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "landscape",
+  "background_color": "#11131f",
+  "theme_color": "#11131f",
+  "categories": ["games"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
